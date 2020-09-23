@@ -47,19 +47,31 @@ class Stopwatch extends Component {
     let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
     //concat a 0 and displaying only 2 digits by slicing off the rest
     return (
-      <div className="stopwatchDisplay">
-        {hours} : {minutes} : {seconds}
+      <div className="stopwatchContainer">
+        <div className="stopwatch">
+          {hours} : {minutes} : {seconds}
+        </div>
+
         {this.state.timerOn === false && this.state.timerTime === 0 && (
-          <button onClick={this.startTimer}>Start</button>
+          <button className="startStopButtons" onClick={this.startTimer}>
+            Start
+          </button>
         )}
+
         {this.state.timerOn === true && (
-          <button onClick={this.stopTimer}>Stop</button>
+          <button className="startStopButtons" onClick={this.stopTimer}>
+            Stop
+          </button>
         )}
+
         {this.state.timerOn === false && this.state.timerTime > 0 && (
-          <button onClick={this.startTimer}>Resume</button>
+          <button className="startStopButtons" onClick={this.startTimer}>
+            Resume
+          </button>
         )}
+
         {this.state.timerOn === false && this.state.timerTime > 0 && (
-          <button onClick={this.resetTimer}>Reset</button>
+          <button className="resetButton" onClick={this.resetTimer}>Reset</button>
         )}
       </div>
     );
