@@ -30,7 +30,7 @@ class Home extends Component {
     if (prevState.activities.length !== this.state.activities.length) {
       const json = JSON.stringify(activities);
       localStorage.setItem("activities", json);
-      console.log("saved, ", localStorage.getItem("activities"));
+      console.log("saved into localStorage (CDUpdate - HOME), ", localStorage.getItem("activities"));
     };
   };
 

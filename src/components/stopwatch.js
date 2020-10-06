@@ -8,10 +8,14 @@ class Stopwatch extends Component {
     this.state = {
       timerOn: false,
       timerTime: 0,
-      timerStart: 0
+      timerStart: 0,
+      currentTime: []
     };
   }
+//need to find a way to render the timers in order, just like activities, since they're in order
 
+
+//Use objects instead of arrays for optimizations
   startTimer = () => {
     this.setState({
       timerOn: true,
@@ -27,9 +31,19 @@ class Stopwatch extends Component {
   };
 
   stopTimer = () => {
+    const { timerTime } = this.state; //this.state.timerTime = timerTime
+
+    let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
+    let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
+    let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
+
+    let thisTime = `${hours} : ${minutes} : ${seconds}`;
+
     this.setState({
-      timerOn: false
+      timerOn: false,
+      currentTime: thisTime
     });
+    console.log("state after stop", this.state);
     clearInterval(this.timer); //needed to clear the setInterval we called
   };
 
@@ -38,6 +52,32 @@ class Stopwatch extends Component {
       timerTime: 0,
       timerStart: 0
     });
+  };
+
+  //every time we are reading from the localStorage, we are adding back to the state
+  //this makes sure what's stored is not lost even if we refresh page
+  componentDidMount = () => {
+    const receivedTimers = localStorage.getItem("currentTime");
+    if (receivedTimers) {
+      const parsedJSON = JSON.parse(receivedTimers);
+      this.setState({
+        currentTime: parsedJSON
+      });
+    }
+  };
+
+  //good place to add items to local storage since component is updating
+  componentDidUpdate = (prevProps, prevState) => {
+    const currentTime = this.state.currentTime;
+    if (prevState.currentTime !== this.state.currentTime) {
+      const json = JSON.stringify(currentTime);
+      localStorage.setItem("currentTime", json);
+      console.log("saved into localStorage (CDUpdate - STOPWATCH)", localStorage.getItem("currentTime"));
+    }
+  };
+
+  renderCurrentTime = () => {
+    return this.state.currentTime;
   };
 
   render() {
@@ -51,6 +91,7 @@ class Stopwatch extends Component {
         <div className="stopwatch">
           {hours} : {minutes} : {seconds}
         </div>
+        {this.renderCurrentTime()}
 
         {this.state.timerOn === false && this.state.timerTime === 0 && (
           <button className="startStopButtons" onClick={this.startTimer}>
@@ -71,7 +112,9 @@ class Stopwatch extends Component {
         )}
 
         {this.state.timerOn === false && this.state.timerTime > 0 && (
-          <button className="resetButton" onClick={this.resetTimer}>Reset</button>
+          <button className="resetButton" onClick={this.resetTimer}>
+            Reset
+          </button>
         )}
       </div>
     );

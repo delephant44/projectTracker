@@ -13,7 +13,11 @@ function App() {
           <img src="/project.png" alt="project tracker" />
       </div>
       <Home/>
-      
+      1) left off at stopwatch component
+      <br></br>
+      2) am able to add thisTime to the state when stopping the clock
+      <br></br>
+      3) looks like console log is showing the previous time on the state
     </div>
   );
 }
