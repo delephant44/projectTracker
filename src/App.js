@@ -13,11 +13,10 @@ function App() {
           <img src="/project.png" alt="project tracker" />
       </div>
       <Home/>
-      1) left off at stopwatch component
+      1) figuring out how to save the individual timers to storage and grab when needed
       <br></br>
-      2) am able to add thisTime to the state when stopping the clock
-      <br></br>
-      3) looks like console log is showing the previous time on the state
+      2) we are passing down index to Stopwatch to use that to track the active timers
+
     </div>
   );
 }

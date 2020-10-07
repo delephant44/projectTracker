@@ -13,7 +13,8 @@ class Activity extends Component {
             return (
               <div key={index} className="activityRow">
                 <div className="activityName">{currentActivity.name}</div>
-                <Stopwatch />
+                {/* pass index down as a prop (from the map method) */}
+                <Stopwatch index={index}/>
                 <div>
                   <button className="removeButton" onClick={() => this.props.deleteActivity(currentActivity.id)}>Delete</button>
                 </div>
