@@ -8,7 +8,8 @@ class Home extends Component {
 
     this.state = {
       activities: [
-      ]
+      ],
+      timerTime: 0
     };
   }
 
@@ -60,6 +61,7 @@ class Home extends Component {
         <Navbar addActivity={this.addActivity} />
         <Activity
           activities={this.state.activities}
+          // timerTime={this.state.timerTime}
           deleteActivity={this.deleteActivity}
         />
       </div>

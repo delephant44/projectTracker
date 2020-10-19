@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Stopwatch from "./Stopwatch";
 
 class Activity extends Component {
-
   render() {
     //map through all the tasks here, will need to have ability to add and remove
     return (
@@ -14,9 +13,19 @@ class Activity extends Component {
               <div key={index} className="activityRow">
                 <div className="activityName">{currentActivity.name}</div>
                 {/* pass index down as a prop (from the map method) */}
-                <Stopwatch index={index}/>
+                <Stopwatch
+                  index={index}
+                  // timerTime={this.props.timerTime}
+                />
                 <div>
-                  <button className="removeButton" onClick={() => this.props.deleteActivity(currentActivity.id)}>Delete</button>
+                  <button
+                    className="removeButton"
+                    onClick={() =>
+                      this.props.deleteActivity(currentActivity.id)
+                    }
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             );
